@@ -6,6 +6,26 @@ A web application which helps managing club members, organize events and sending
 
 Most of the small scale social clubs such as clubs in schools, universities and cities who are working towards members' and societies' wellbeing are currently using social media such as Whatsapp groups, Telegram groups, Facebook pages and so on to communicate with their members. As we can see here, this method is inefficient in some situations since some members may miss some of the contents shared. To overcome this issue we have built a web application which helps clubs to organize their members, plan events and notify about them through email using Courier API.
 
+## Functionalities Implemented
+
+- Members management
+
+The app currently supports inserting, deleting and managing members data.
+
+- Welcome email
+
+Welcome email is sent when the user is added to the club's database.
+
+- Birthday Wishes
+
+Upcoming birthdays are displayed to the club's admin and he can schedule the wish on the particular date to send the wish using Courier Automation.
+
+## To be implemented
+
+- Event management
+
+Any events organized by the club can be added to the database and send notifications prior to the event informing the club members using Courier Automation.
+
 ## Technologies Used
 
 - language - Typescript
@@ -35,5 +55,4 @@ WELCOME_MAIL_ID=<Welcome Email Template ID>
 BIRTHDAY_MAIL_ID=<Birthday Wish Email Template ID>
 ```
 
-4. Setup database settings inside `data-source.ts` file
-5. Run `npm start` command
+4. Run `npm run dev` command
