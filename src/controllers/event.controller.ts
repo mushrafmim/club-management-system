@@ -24,14 +24,20 @@ export default class EventCtrl {
       where: { id: Number(id) },
     });
 
-    const delay_time = member.dob + "T00:14:00.000+05:30";
+    let delay_time = member.dob + "T00:14:00.000+05:30";
 
-    await scheduleAutomation(delay_time, id, "3SW356REAYM17PPE1KE2974N7BJS", {
+    delay_time = new Date().getFullYear().toString() + delay_time.slice(4);
+
+    // Scheduling the birthday wish on a particular day.
+    const birthdayWishTemplateId = process.env.BIRTHDAY_MAIL_ID;
+
+    await scheduleAutomation(delay_time, id, birthdayWishTemplateId, {
       member_name: `${member.firstname} ${member.lastname}`,
     }).then((res) => {
       console.log(res);
     });
 
+    // Marking as scheduled.
     const result = await memberRepo
       .createQueryBuilder()
       .update(Member)
