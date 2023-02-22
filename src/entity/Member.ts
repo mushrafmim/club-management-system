@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { IsEmail, IsPhoneNumber } from "class-validator";
 
 @Entity()
 export class Member {
@@ -14,12 +15,20 @@ export class Member {
   @Column()
   fullname: string;
 
-  @Column()
-  birthDate: Date;
+  @Column("date")
+  dob: Date;
+
+  @Column({
+    type: "boolean",
+    default: false,
+  })
+  birthday_scheduled: boolean;
 
   @Column()
-  username: string;
+  @IsEmail()
+  email: string;
 
   @Column()
-  password: string;
+  @IsPhoneNumber()
+  contact: string;
 }

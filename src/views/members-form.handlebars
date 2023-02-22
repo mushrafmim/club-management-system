@@ -1,0 +1,43 @@
+<div class="py-3 d-flex align-items-center justify-content-end">
+  <a href="/members" role="button" class="btn btn-danger">Go Back</a>
+</div>
+<form action="/members" method="post" class="w-100 m-auto">
+  <h2 class="text-center">ADD NEW MEMBER</h2>
+  <div class="row mb-3">
+    <div class="col">
+      <label for="InputFirstname" class="form-label">First Name</label>
+      <input name="firstname" required type="text" class="form-control" id="InputFirstname" />
+    </div>
+    <div class="col">
+      <label for="InputLastname" class="form-label">Last Name</label>
+      <input name="lastname" required type="text" class="form-control" id="InputLastname" />
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="InputFullname" class="form-label">Full Name</label>
+    <input name="fullname" required type="text" class="form-control" id="InputFullname" />
+  </div>
+  <div class="row">
+    <div class="col mb-3">
+      <label for="InputDateofBirth" class="form-label">Date of Birth</label>
+      <input name="dob" required type="date" value="2000-06-30" class="form-control" id="InputDateofBirth" />
+    </div>
+    <div class="col mb-3">
+      <label for="InputTel" class="form-label">Contact No</label>
+      <input name="contact" required type="tel" class="form-control" id="InputTel" />
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="InputEmail" class="form-label">Email</label>
+    <input name="email" required type="email" class="form-control" id="InputEmail" />
+  </div>
+  {{! <div class="mb-3">
+    <label for="InputUsername" class="form-label">Username</label>
+    <input name="username" required type="text" class="form-control" id="InputUsername" />
+  </div>
+  <div class="mb-3">
+    <label for="InputPassword" class="form-label">Password</label>
+    <input name="password" required type="text" class="form-control" id="InputPassword" />
+  </div> }}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
