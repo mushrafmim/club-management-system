@@ -20,11 +20,15 @@ Welcome email is sent when the user is added to the club's database.
 
 Upcoming birthdays are displayed to the club's admin and he can schedule the wish on the particular date to send the wish using Courier Automation.
 
-## To be implemented
-
 - Event management
 
 Any events organized by the club can be added to the database and send notifications prior to the event informing the club members using Courier Automation.
+
+## To be implemented
+
+- Event Reminders
+
+Sending reminders about events prior to the event day.
 
 ## Technologies Used
 
