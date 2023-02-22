@@ -12,7 +12,7 @@ function sendIndividualMail(template: string, data, user_id: string) {
   });
 }
 
-function sendBroadcastMail(template: string, data: JSON, recipient_list: string) {
+function sendBroadcastMail(template: string, data: Object, recipient_list: string) {
   return apiClient.post("send", {
     message: {
       template: template,

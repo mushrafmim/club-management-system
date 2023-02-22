@@ -1,0 +1,19 @@
+<div class="py-3 d-flex align-items-center justify-content-end">
+  <a href="/events" role="button" class="btn btn-danger">Go Back</a>
+</div>
+<form action="/events" method="post" class="w-100 m-auto">
+  <h2 class="text-center">ADD NEW EVENT</h2>
+  <div class="mb-3">
+    <label for="InputTitle" class="form-label">Title</label>
+    <input name="title" required type="text" class="form-control" id="InputTitle" />
+  </div>
+  <div class="mb-3">
+    <label for="InputDate" class="form-label">Date</label>
+    <input name="date" required type="datetime-local" class="form-control" id="InputDate" />
+  </div>
+  <div class="mb-3">
+    <label for="InputVenue" class="form-label">Venue</label>
+    <input name="venue" required type="text" class="form-control" id="InputVenue" />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

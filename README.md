@@ -53,6 +53,7 @@ COURIER_TOKEN=<courier_token>
 PORT=<port_to_run>
 WELCOME_MAIL_ID=<Welcome Email Template ID>
 BIRTHDAY_MAIL_ID=<Birthday Wish Email Template ID>
+EVENT_ANNOUNCEMENT_ID=<Event Announcement email template>
 ```
 
 4. Run `npm run dev` command

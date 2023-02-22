@@ -3,8 +3,10 @@ import EventCtrl from "../controllers/event.controller";
 
 const router: Router = Router();
 
-router.route("/").get(EventCtrl.getUpcomingBirthdays);
+router.route("/").get(EventCtrl.getEventsPage).post(EventCtrl.insertEvent);
 
-router.route("/birthday/:id").get(EventCtrl.scheduleBirthday);
+router.route("/new").get(EventCtrl.eventsForm);
+
+router.route("/schedule/:id").get(EventCtrl.scheduleEvent);
 
 export default router;

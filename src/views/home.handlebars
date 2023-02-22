@@ -1,1 +1,37 @@
-<h1>HOME PAGE</h1>
+<h2 class="py-3">Upcoming Events</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Birthday On</th>
+      <th scope="col">Days Remaining</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each birthdays}}
+      <tr>
+        <th scope="row">{{id}}</th>
+        <td>{{name}}</td>
+        <td>{{birthday_on}}</td>
+        <td>{{days_remaining}}</td>
+        <td>
+          {{#if birthday_scheduled}}
+            SCHEDULED
+          {{else}}
+            <a role="button" href="/events/birthday/{{id}}" class="btn btn-outline-success btn-sm">SCHEDULE</a>
+          {{/if}}
+          {{!-- <div class="dropdown">
+            <i class="bi bi-three-dots-vertical" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="members/view/{{id}}">VIEW</a></li>
+              <li><a class="dropdown-item text-warning" href="#">EDIT</a></li>
+              <li><a class="dropdown-item text-danger" href="members/delete/{{id}}">DELETE</a></li>
+            </ul>
+          </div> --}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

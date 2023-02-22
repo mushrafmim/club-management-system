@@ -1,50 +1,78 @@
 import { Request, Response } from "express";
-import { QueryBuilder, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
+import { Event } from "../entity/Event";
 import { Member } from "../entity/Member";
 import { scheduleAutomation } from "../services/automation";
+import { sendBroadcastMail } from "../services/mail_management";
 
-const memberRepo: Repository<Member> = AppDataSource.getRepository(Member);
-// const memberQuery = memberRepo.createQueryBuilder("member");
+const eventRepo: Repository<Event> = AppDataSource.getRepository(Event);
 
 export default class EventCtrl {
-  public static async getUpcomingBirthdays(req: Request, res: Response) {
-    const upcomingBirthdays = await AppDataSource.query(
-      "SELECT * FROM upcoming_birthday WHERE days_remaining BETWEEN 1 AND 15"
-    );
+  public static async getEventsPage(req: Request, res: Response) {
+    const allEvents = await eventRepo.find();
 
-    res.render("members-birthday", { birthdays: upcomingBirthdays });
-    // console.log(upcomingBirthdays);
+    return res.render("events-page", { allEvents });
   }
 
-  public static async scheduleBirthday(req: Request, res: Response) {
-    const id = req.params.id;
+  public static async eventsForm(req: Request, res: Response) {
+    try {
+      res.render("events-form");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-    const member = await memberRepo.findOne({
-      where: { id: Number(id) },
-    });
+  public static async insertEvent(req: Request, res: Response) {
+    try {
+      const { title, date, venue } = req.body;
 
-    let delay_time = member.dob + "T00:14:00.000+05:30";
+      const event = Object.assign(new Event(), {
+        title,
+        date,
+        venue,
+        type: "PUBLIC",
+      });
 
-    delay_time = new Date().getFullYear().toString() + delay_time.slice(4);
+      const event_template = process.env.EVENT_ANNOUNCEMENT_ID;
 
-    // Scheduling the birthday wish on a particular day.
-    const birthdayWishTemplateId = process.env.BIRTHDAY_MAIL_ID;
+      console.log(event_template);
+      await sendBroadcastMail(
+        event_template,
+        {
+          event_name: title,
+          EventVenue: venue,
+          EventDate: date,
+        },
+        "ALL_MEMBERS"
+      );
 
-    await scheduleAutomation(delay_time, id, birthdayWishTemplateId, {
-      member_name: `${member.firstname} ${member.lastname}`,
-    }).then((res) => {
-      console.log(res);
-    });
+      const result = await eventRepo.save(event);
 
-    // Marking as scheduled.
-    const result = await memberRepo
-      .createQueryBuilder()
-      .update(Member)
-      .set({ birthday_scheduled: true })
-      .where("id = :id", { id })
-      .execute();
+      res.redirect("/events");
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
-    res.redirect("/events");
+  // To be implemented.
+  public static async scheduleEvent(req: Request, res: Response) {
+    try {
+      const id: string = req.params.id;
+
+      const event = await eventRepo.findOne({
+        where: {
+          id: Number(id),
+        },
+      });
+
+      // Going to send reminder email before 3 days.
+      event.date.setDate(event.date.getDate() - 3);
+
+      res.redirect("/events");
+    } catch (error) {
+      console.log(error);
+      res.redirect("/events");
+    }
   }
 }

@@ -40,10 +40,12 @@ export default class MemberCtrl {
       });
 
       // Adding the user to the general mailing_list.
-      await addToList("GENERAL_NOTIFICATIONS", result.id);
+      await addToList("ALL_MEMBERS", result.id);
 
       // Sending the welcoming email
-      await sendIndividualMail("4P34S8DRK2MS4VQ9BR80QQ50HW9B", { member_name: lastname }, result.id.toString());
+
+      const welcomeEmailTemplate = process.env.WELCOME_MAIL_ID;
+      await sendIndividualMail(welcomeEmailTemplate, { member_name: lastname }, result.id.toString());
 
       await res.redirect("/members");
     } catch (error) {
@@ -56,7 +58,7 @@ export default class MemberCtrl {
     try {
       res.render("members-form");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
